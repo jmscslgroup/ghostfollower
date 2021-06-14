@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghostfollower'.
 //
-// Model version                  : 3.35
+// Model version                  : 3.38
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon May 31 01:01:10 2021
+// C/C++ source code generated on : Mon Jun 14 16:00:27 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -119,9 +119,9 @@ void ghostfollower_step(void)
   SL_Bus_ghostfollower_std_msgs_Float64 rtb_BusAssignment1_d;
   SL_Bus_ghostfollower_std_msgs_Float64 rtb_BusAssignment1_i;
   SL_Bus_ghostfollower_std_msgs_UInt8 rtb_BusAssignment1;
-  real_T g_idx_0;
   real_T rtb_Subtract2;
   real_T value;
+  real_T value_0;
   real_T x1_tmp;
   real_T x3;
   boolean_T b_varargout_1;
@@ -227,10 +227,14 @@ void ghostfollower_step(void)
   // MATLABSystem: '<S3>/Get Parameter3'
   ParamGet_ghostfollower_230.get_parameter(&x3);
 
+  // MATLABSystem: '<S3>/Get Parameter4'
+  ParamGet_ghostfollower_245.get_parameter(&value_0);
+
   // MATLAB Function: '<S3>/MATLAB Function1' incorporates:
   //   MATLABSystem: '<S3>/Get Parameter1'
   //   MATLABSystem: '<S3>/Get Parameter2'
   //   MATLABSystem: '<S3>/Get Parameter3'
+  //   MATLABSystem: '<S3>/Get Parameter4'
 
   ghostfollower_B.x1 = ghostfollower_B.Subtract;
   if (ghostfollower_B.Subtract >= 0.0) {
@@ -238,33 +242,33 @@ void ghostfollower_step(void)
   }
 
   x1_tmp = ghostfollower_B.x1 * ghostfollower_B.x1 * 0.5;
-  ghostfollower_B.x1 = (x1_tmp / 1.5 + 4.5) + value *
+  ghostfollower_B.x1 = (x1_tmp / 1.5 + value_0) + value *
     ghostfollower_B.In1.Linear.X;
-  ghostfollower_B.x2 = (x1_tmp + 5.25) + ghostfollower_B.x2 *
+  ghostfollower_B.x2 = ((value_0 + 6.0) / 2.0 + x1_tmp) + ghostfollower_B.x2 *
     ghostfollower_B.In1.Linear.X;
   x3 = (x1_tmp / 0.5 + 6.0) + x3 * ghostfollower_B.In1.Linear.X;
-  x1_tmp = ghostfollower_B.In1_b.Linear.X;
+  value_0 = ghostfollower_B.In1_b.Linear.X;
   if (ghostfollower_B.In1_b.Linear.X < 0.0) {
-    x1_tmp = 0.0;
+    value_0 = 0.0;
   }
 
   if (ghostfollower_B.In1_b.Linear.X > ghostfollower_B.In1_a.Linear.X) {
+    value_0 = ghostfollower_B.In1_a.Linear.X;
+  }
+
+  x1_tmp = 0.0;
+  if (rtb_Subtract2 > x3) {
     x1_tmp = ghostfollower_B.In1_a.Linear.X;
   }
 
-  g_idx_0 = 0.0;
-  if (rtb_Subtract2 > x3) {
-    g_idx_0 = ghostfollower_B.In1_a.Linear.X;
-  }
-
   if ((rtb_Subtract2 > ghostfollower_B.x2) && (rtb_Subtract2 <= x3)) {
-    g_idx_0 = (ghostfollower_B.In1_a.Linear.X - x1_tmp) * (rtb_Subtract2 -
-      ghostfollower_B.x2) / (x3 - ghostfollower_B.x2) + x1_tmp;
+    x1_tmp = (ghostfollower_B.In1_a.Linear.X - value_0) * (rtb_Subtract2 -
+      ghostfollower_B.x2) / (x3 - ghostfollower_B.x2) + value_0;
   }
 
   if ((rtb_Subtract2 > ghostfollower_B.x1) && (rtb_Subtract2 <=
        ghostfollower_B.x2)) {
-    g_idx_0 = (rtb_Subtract2 - ghostfollower_B.x1) * x1_tmp /
+    x1_tmp = (rtb_Subtract2 - ghostfollower_B.x1) * value_0 /
       (ghostfollower_B.x2 - ghostfollower_B.x1);
   }
 
@@ -274,7 +278,7 @@ void ghostfollower_step(void)
   //   MATLAB Function: '<S3>/MATLAB Function1'
 
   ghostfollower_B.BusAssignment = ghostfollower_P.Constant_Value;
-  ghostfollower_B.BusAssignment.Linear.X = g_idx_0;
+  ghostfollower_B.BusAssignment.Linear.X = x1_tmp;
   ghostfollower_B.BusAssignment.Angular.Z = ghostfollower_P.Constant_Value_b;
 
   // Outputs for Atomic SubSystem: '<Root>/Publish'
@@ -416,6 +420,7 @@ void ghostfollower_initialize(void)
     char_T b_zeroDelimTopic_3[7];
     char_T b_zeroDelimTopic_1[6];
     char_T b_zeroDelimTopic_0[4];
+    char_T b_zeroDelimName_0[3];
     static const char_T tmp[10] = { 'l', 'e', 'a', 'd', 'e', 'r', '_', 'v', 'e',
       'l' };
 
@@ -622,6 +627,17 @@ void ghostfollower_initialize(void)
     ParamGet_ghostfollower_230.initialize_error_codes(0, 1, 2, 3);
     ParamGet_ghostfollower_230.set_initial_value(1.8);
     ghostfollower_DW.obj_n.isSetupComplete = true;
+
+    // Start for MATLABSystem: '<S3>/Get Parameter4'
+    ghostfollower_DW.obj_j.matlabCodegenIsDeleted = false;
+    ghostfollower_DW.obj_j.isInitialized = 1;
+    b_zeroDelimName_0[0] = 'w';
+    b_zeroDelimName_0[1] = '1';
+    b_zeroDelimName_0[2] = '\x00';
+    ParamGet_ghostfollower_245.initialize(&b_zeroDelimName_0[0]);
+    ParamGet_ghostfollower_245.initialize_error_codes(0, 1, 2, 3);
+    ParamGet_ghostfollower_245.set_initial_value(4.5);
+    ghostfollower_DW.obj_j.isSetupComplete = true;
   }
 
   // set "at time zero" to false
@@ -687,6 +703,13 @@ void ghostfollower_terminate(void)
   }
 
   // End of Terminate for MATLABSystem: '<S3>/Get Parameter3'
+
+  // Terminate for MATLABSystem: '<S3>/Get Parameter4'
+  if (!ghostfollower_DW.obj_j.matlabCodegenIsDeleted) {
+    ghostfollower_DW.obj_j.matlabCodegenIsDeleted = true;
+  }
+
+  // End of Terminate for MATLABSystem: '<S3>/Get Parameter4'
 
   // Terminate for Atomic SubSystem: '<Root>/Publish'
   // Terminate for MATLABSystem: '<S4>/SinkBlock'

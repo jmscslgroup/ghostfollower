@@ -37,6 +37,9 @@ extern SimulinkParameterGetter<real64_T, double> ParamGet_ghostfollower_226;
 // For Block ghostfollower/Follower Stopper Switch Control/Get Parameter3
 extern SimulinkParameterGetter<real64_T, double> ParamGet_ghostfollower_230;
 
+// For Block ghostfollower/Follower Stopper Switch Control/Get Parameter4
+extern SimulinkParameterGetter<real64_T, double> ParamGet_ghostfollower_245;
+
 // For Block ghostfollower/Get Parameter2
 extern SimulinkParameterGetter<real64_T, double> ParamGet_ghostfollower_236;
 

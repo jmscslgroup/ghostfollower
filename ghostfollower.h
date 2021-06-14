@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghostfollower'.
 //
-// Model version                  : 3.35
+// Model version                  : 3.38
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon May 31 01:01:10 2021
+// C/C++ source code generated on : Mon Jun 14 16:00:27 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -157,6 +157,7 @@ struct B_ghostfollower_T {
 // Block states (default storage) for system '<Root>'
 struct DW_ghostfollower_T {
   ros_slros_internal_block_GetP_T obj; // '<Root>/Get Parameter2'
+  ros_slros_internal_block_GetP_T obj_j;// '<S3>/Get Parameter4'
   ros_slros_internal_block_GetP_T obj_n;// '<S3>/Get Parameter3'
   ros_slros_internal_block_GetP_T obj_k;// '<S3>/Get Parameter2'
   ros_slros_internal_block_GetP_T obj_c;// '<S3>/Get Parameter1'
